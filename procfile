@@ -1,1 +1,1 @@
-web : gunicorn ANKITSlIST.wgsi
+web : gunicorn ankitslist.wgsi

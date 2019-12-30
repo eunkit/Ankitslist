@@ -18,6 +18,10 @@ def new_search(request):
     min_text = request.POST.get('min_price')
     max_text = request.POST.get('max_price')
     
+    #Check is text is null or not
+    if Search_text == None:
+        Search_text = ''
+    
     #save searchs in the table
     models.Search.objects.create(search = Search_text)
     #Format Query
@@ -37,11 +41,9 @@ def new_search(request):
     #Clean up the results using beautiful soup
     soup = BeautifulSoup(data, features='html.parser')
     post_lists = soup.find_all( 'li',{'class' : 'result-row'})
-    post_title = post_lists[0].find(class_  ='result-title hdrlnk').text
-    post_link  = post_lists[0].find('a').get('href')
-    post_cost  = post_lists[0].find(class_  = 'result-price').text
-
+   
     final_posts =[]
+    numberofsearches = 0
     for post in post_lists:
         post_title = post.find(class_  ='result-title hdrlnk').text
         post_link  = post.find('a').get('href')
@@ -56,8 +58,12 @@ def new_search(request):
         else:
             post_image = 'https://image.shutterstock.com/image-vector/no-image-available-icon-vector-260nw-1323742826.jpg'
         final_posts.append((post_title, post_link, post_cost,post_image ))
+        numberofsearches+=1
+
+    print(numberofsearches)
     search_dictionary ={
         'search' : Search_text,
          'final_posts' : final_posts,
+         'numberofsearches' : numberofsearches ,
     }
     return render(request , 'my_app/new_search.html',search_dictionary)

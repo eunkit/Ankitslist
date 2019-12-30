@@ -1,7 +1,8 @@
 {% extends 'base.html'%}
 {% block content%}
 {% load static %}
-    <h2 style= "text-align: center;">You Seached for:{{search|title}}</h2> 
+    <h4 style= "text-align: center;">You Searched For:{{search|title}}</h4> 
+    <h5 style= "text-align: center;">Found {{numberofsearches}} listings</h5> 
     <div class= "row">
     {% for post in final_posts %}
         <div class="col s4">

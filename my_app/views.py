@@ -21,7 +21,7 @@ def new_search(request):
     #Check is text is null or not
     if Search_text == None:
         Search_text = ''
-    
+
     #save searchs in the table
     models.Search.objects.create(search = Search_text)
     #Format Query
